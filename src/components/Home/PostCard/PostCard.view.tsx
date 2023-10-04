@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea, Avatar, Box, Link } from "@mui/material";
 import { IPost } from "@/@core/domain/entities/post";
 import Badge from "@/components/Common/Badge/Badge.component";
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MetaInfo from "@/components/Common/MetaInfo/MetaInfo.component";
 
 interface Props {
