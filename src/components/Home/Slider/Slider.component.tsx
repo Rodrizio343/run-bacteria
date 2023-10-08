@@ -52,7 +52,9 @@ function Slide({item}) {
           </div>
           <div className={styles.sliderCoverContent}>
             <div className={styles.entryHeader}>
-              <Badge variant='secondary' text={item.category} />
+              {
+                item.category && <Badge variant='secondary' text={item.category} />
+              }
               <h2 className={styles.entryTitle}>
                 <Link href={`post/${item.post.id}`}>{item.title}</Link>
               </h2>
