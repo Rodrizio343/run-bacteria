@@ -6,7 +6,7 @@ interface IPostContainer {
 }
 
 const PostContainer = ({
-  data: { id, title, brief, content, image, categories, date },
+  data: { id, title, brief, content, image, categories, date, author },
 }: IPostContainer) => {
   return (
     <PostView
@@ -17,6 +17,7 @@ const PostContainer = ({
       image={image}
       categories={categories}
       date={date}
+      author={author}
     />
   );
 };

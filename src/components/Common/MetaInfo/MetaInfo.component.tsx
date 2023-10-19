@@ -2,7 +2,7 @@ import { Avatar, Box, Typography } from "@mui/material";
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
 
-const MetaInfo = ({ date, card = true, imageAsBackground = false  }) => {
+const MetaInfo = ({ date, author, card = true, imageAsBackground = false  }) => {
   return (
     <Box
       sx={{
@@ -22,9 +22,9 @@ const MetaInfo = ({ date, card = true, imageAsBackground = false  }) => {
         ...(imageAsBackground && {color: '#fff'})
       }}
     >
-      <Avatar src="/avatar.png" sx={{ marginRight: "5px" }} />
+      <Avatar src={author.avatar} sx={{ marginRight: "5px" }} />
       <Typography variant="caption" mr={2}>
-        By Juli Baciredo
+        By {author.name}
       </Typography>
       <CalendarTodayIcon />
       <Typography variant="caption" ml={1}>

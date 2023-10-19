@@ -1,10 +1,9 @@
 import Badge from "@/components/Common/Badge/Badge.component";
 import { Box, Container, Link, Paper, Typography, Avatar } from "@mui/material";
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import MetaInfo from "@/components/Common/MetaInfo/MetaInfo.component";
 
 
-const PostBodyView = ({ title, brief, content, categories, date }) => {
+const PostBodyView = ({ title, brief, content, categories, date, author}) => {
   return (
     <Container>
       <Paper
@@ -30,7 +29,7 @@ const PostBodyView = ({ title, brief, content, categories, date }) => {
         <Typography variant="subtitle1" fontWeight={500} mb={1}>
           {brief}
         </Typography>
-        <MetaInfo date={date} card={false}/>
+        <MetaInfo date={date} author={author} card={false}/>
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </Paper>
     </Container>

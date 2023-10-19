@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PostCardView = ({
-  data: { id, title, brief, image, categories, content, date },
+  data: { id, title, brief, image, categories, date, author },
   showImage = true,
   imageAsBackground = false,
 }: Props) => {
@@ -84,7 +84,7 @@ const PostCardView = ({
           >
             {brief}
           </Typography>
-          <MetaInfo date={date} imageAsBackground={imageAsBackground}/>
+          <MetaInfo date={date} author={author} imageAsBackground={imageAsBackground}/>
         </CardContent>
       </CardActionArea>
     </Card>

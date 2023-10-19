@@ -1,5 +1,6 @@
 import { getImagePath } from '@/utils/getImagePath'
 import { getDate } from '@/utils/getDate'
+import { getAvatar } from '@/utils/getAvatar'
 import { remark } from 'remark'
 import remarkHtml from 'remark-html'
 
@@ -13,7 +14,11 @@ export const createPostsAdapter = (posts: any) => {
         image: post.image?.url ? getImagePath(post.image.url) : '/nature.jpg',
         isActive: post.active,
         date: getDate(post.publishedAt),
-        categories: post.categories
+        categories: post.categories,
+        author: {
+          name: post.createdBy ? post.createdBy.firstname + ' ' + post.createdBy.lastname : 'Juli Baciredo',
+          avatar: getAvatar(post.createdBy.email)     
+        }
       }
     })
     return adaptedPosts
@@ -36,7 +41,11 @@ export const createPostAdapter = async(post: any) => {
         image: post.image?.url ? getImagePath(post.image.url) : '/nature.jpg',
         isActive: post.active,
         date: getDate(post.publishedAt),
-        categories: post.categories
+        categories: post.categories,
+        author: {
+          name: post.createdBy ? post.createdBy.firstname + ' ' + post.createdBy.lastname : 'Juli Baciredo',
+          avatar: getAvatar(post.createdBy.email)     
+        }
     }
     return adaptedPost
   } catch (error) {

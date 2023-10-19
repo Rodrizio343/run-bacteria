@@ -9,9 +9,15 @@ export interface IPost {
   isActive: string
   categories: ICategory[]
   date: string
+  author: IAuthor
   count?: number
 }
 
+
+interface IAuthor {
+  name: string
+  avatar: string
+}
 export interface IPostsOutput {
   getPosts(): Promise<IPost[]>
   getPost({id}: {id: string}): Promise<IPost> 
