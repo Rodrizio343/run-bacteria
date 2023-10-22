@@ -6,9 +6,9 @@ import { IPost } from '../domain/entities/post'
 
 export const getCategoryById = async(id: string): Promise<ICategory> => {
   try {
-    const category = await strapi.findOne('categories', id, {populate: ['posts.image', 'posts.categories']})
+    const category = await strapi.findOne('categories', id, {populate: ['posts.image', 'posts.categories, posts.createdBy']})
     const adaptedCategory = await createCategoryAdapter(category) as ICategory
-    const adaptedPosts = createPostsAdapter(adaptedCategory.posts)
+    const adaptedPosts = await createPostsAdapter(adaptedCategory.posts)
     adaptedCategory['posts']= adaptedPosts
     return adaptedCategory
   } catch (error) {
