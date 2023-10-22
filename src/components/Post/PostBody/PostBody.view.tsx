@@ -8,7 +8,10 @@ const PostBodyView = ({ title, brief, content, categories, date, author}) => {
     <Container>
       <Paper
         sx={{
-          padding: "40px 60px 50px",
+          padding: {
+            md: "40px 60px 50px",
+            xs: "1.5rem 1rem"
+          },
           position: "relative",
           marginTop: "-70px",
           marginBottom: "2rem",

@@ -1,13 +1,13 @@
-import PageInProgress from "@/components/Common/PageInProgress/PageInProgress.component"
+import ContactFormContainer from "@/components/ContactMe/ContactForm.container"
 import Head from "next/head"
 
 const ContactMePage = () => {
   return (
     <>
       <Head>
-        <title>About me</title>
+        <title>Contact me</title>
       </Head>
-      <PageInProgress />
+      <ContactFormContainer />
     </>
   )
 }
