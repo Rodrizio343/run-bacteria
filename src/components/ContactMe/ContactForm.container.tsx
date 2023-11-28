@@ -1,12 +1,10 @@
-import { use, useState } from "react";
-import { contactMailValidation } from "@/validations/contact";
-import { useFormik } from "formik";
-import ContactFormView from "./ContactForm.view";
-import { sendContactEmail } from "@/utils/sendContactEmail";
-import { EmailJSResponseStatus } from "@emailjs/browser";
-import { AlertColor } from "@mui/material";
 import SnackBar from "@/components/Common/Snackbar/Snackbar.component";
 import useSnackbar from "@/hooks/useSnackbar";
+import { sendContactEmail } from "@/utils/sendContactEmail";
+import { contactMailValidation } from "@/validations/contact";
+import { EmailJSResponseStatus } from "@emailjs/browser";
+import { useFormik } from "formik";
+import ContactFormView from "./ContactForm.view";
 
 const ContactFormContainer = () => {
   const { open, handleClose, status, setStatus, setOpen } = useSnackbar();

@@ -1,4 +1,4 @@
-import Header from "@/components/Layout/Header/Header.component";
+import Header from "@/components/Layout/Header/Header.container";
 import Footer from "@/components/Layout/Footer/Footer.component";
 import { Box } from "@mui/material";
 
