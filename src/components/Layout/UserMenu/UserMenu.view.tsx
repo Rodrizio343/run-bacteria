@@ -76,7 +76,7 @@ const UserMenuView = ({ user }: { user: IUser }) => {
               variant="outlined"
               color="secondary"
               onClick={() =>
-                router.push({ pathname: "auth", query: { index: 0 } }, "auth")
+                router.push({ pathname: "/auth", query: { index: 0 } }, "/auth")
               }
             >
               Sign In
@@ -88,7 +88,7 @@ const UserMenuView = ({ user }: { user: IUser }) => {
               variant="contained"
               color="secondary"
               onClick={() =>
-                router.push({ pathname: "auth", query: { index: 1 } }, "auth")
+                router.push({ pathname: "/auth", query: { index: 1 } }, "/auth")
               }
             >
               Sign Up
