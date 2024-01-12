@@ -1,4 +1,4 @@
-import { registerThunk } from "@/@core/infraestructure/redux/states/session/session.thunks";
+import { sessionSignThunk } from "@/@core/infraestructure/redux/states/session/session.thunks";
 import { useAppDispatch } from "@/@core/infraestructure/redux/store";
 import SnackBar from "@/components/Common/Snackbar/Snackbar.component";
 import useSnackbar from "@/hooks/useSnackbar";
@@ -28,7 +28,7 @@ const SignUpContainer = () => {
     },
     validationSchema: registerValidation,
     onSubmit: async ({ username, email, password }: IValues) => {
-      dispatch(registerThunk({ username, email, password }))
+      dispatch(sessionSignThunk({ username, email, password }))
         .unwrap()
         .then(
           () => {

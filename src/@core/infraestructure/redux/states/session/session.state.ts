@@ -1,16 +1,17 @@
 import { IUser } from "@/@core/domain/entities/user";
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, registerThunk } from "./session.thunks";
+import { getUserThunk, sessionSignThunk } from "./session.thunks";
 import { ISession } from "@/@core/domain/entities/session";
+import { setCookie, deleteCookie } from "cookies-next";
 import { getItem, removeItem, setItem } from "@/utils/localStorage";
 import { localStorage } from "@/@core/domain/entities/localStorage";
+import { fullfilledThunk, pendingThunk, rejectedThunk } from "./session.utils";
 
 const userInitialState: IUser = {
   id: 0,
   username: "",
   email: "",
   avatar: "",
-  jwt: "",
 };
 
 const sessionInitialState: ISession = {
@@ -29,40 +30,27 @@ export const sessionSlice = createSlice({
     : sessionInitialState,
   reducers: {
     logout: (state) => {
-      removeItem(localStorage.USER);
+      deleteCookie("strapi_jwt");
+      removeItem("user");
       return (state = sessionInitialState);
     },
   },
   extraReducers: (builder) => {
-    // Register Reducers
+    // SignIn Reducers
 
-    builder.addCase(registerThunk.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(registerThunk.fulfilled, (state, action) => {
+    builder.addCase(sessionSignThunk.pending, pendingThunk);
+    builder.addCase(sessionSignThunk.fulfilled, fullfilledThunk);
+    builder.addCase(sessionSignThunk.rejected, rejectedThunk);
+
+    //Get User Reducer
+
+    builder.addCase(getUserThunk.pending, pendingThunk);
+    builder.addCase(getUserThunk.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
       setItem(localStorage.USER, state.user);
     });
-    builder.addCase(registerThunk.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
-
-    // Login Reducers
-
-    builder.addCase(loginThunk.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(loginThunk.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.user = action.payload;
-      setItem(localStorage.USER, state.user);
-    });
-    builder.addCase(loginThunk.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error.message;
-    });
+    builder.addCase(getUserThunk.rejected, rejectedThunk);
   },
 });
 

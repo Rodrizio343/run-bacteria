@@ -11,12 +11,14 @@ interface Props {
   data: IPost;
   showImage?: boolean;
   imageAsBackground?: boolean;
+  minimalist?: boolean;
 }
 
 const PostCardView = ({
   data: { id, title, brief, image, categories, date, author },
   showImage = true,
   imageAsBackground = false,
+  minimalist = false,
 }: Props) => {
   return (
     <Card elevation={3}>
@@ -28,7 +30,7 @@ const PostCardView = ({
             md: "flex",
           },
           height: {
-            md: "300px",
+            md: minimalist ? "auto" : "300px",
           },
         }}
         LinkComponent={Link}
@@ -61,15 +63,14 @@ const PostCardView = ({
             position: "relative",
           }}
         >
-          {
-            categories && categories.map(({id, name}) => (
+          {categories &&
+            categories.map(({ id, name }) => (
               <Badge
                 key={id}
                 variant={imageAsBackground ? "tertiary" : "secondary"}
                 text={name}
               />
-            ))
-          }
+            ))}
           <Typography
             gutterBottom
             variant="h5"
@@ -84,7 +85,13 @@ const PostCardView = ({
           >
             {brief}
           </Typography>
-          <MetaInfo date={date} author={author} imageAsBackground={imageAsBackground}/>
+          {!minimalist && (
+            <MetaInfo
+              date={date}
+              author={author}
+              imageAsBackground={imageAsBackground}
+            />
+          )}
         </CardContent>
       </CardActionArea>
     </Card>

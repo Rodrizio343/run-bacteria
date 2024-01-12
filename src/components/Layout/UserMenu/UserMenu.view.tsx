@@ -58,10 +58,17 @@ const UserMenuView = ({ user }: { user: IUser }) => {
             <MenuItem>
               <Typography>Welcome {user.username}</Typography>
             </MenuItem>
-            <MenuItem onClick={() => router.push("/profile")}>
-              <Typography>Profile</Typography>
+            <MenuItem onClick={() => router.push("/account")}>
+              <Typography>Account</Typography>
             </MenuItem>
-            <MenuItem onClick={() => dispatch(logout())}>Log Out</MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(logout());
+                router.push("/");
+              }}
+            >
+              Log Out
+            </MenuItem>
           </UserMenuWrapper>
         </>
       ) : (

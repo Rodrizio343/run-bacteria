@@ -1,12 +1,10 @@
-import { IUser } from '../domain/entities/user';
+import { IUser } from "../domain/entities/user";
 
-export const createSessionAdapter = (data: any): IUser => {
-  const { jwt, user } = data
+export const createUserAdapter = (user: any): IUser => {
   return {
     id: user.id,
     username: user.username,
     email: user.email,
-    avatar: '',
-    jwt
-  }
-}
+    avatar: "",
+  };
+};
