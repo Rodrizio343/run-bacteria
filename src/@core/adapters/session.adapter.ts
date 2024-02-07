@@ -1,3 +1,4 @@
+import { getImagePath } from "@/utils/getImagePath";
 import { IUser } from "../domain/entities/user";
 
 export const createUserAdapter = (user: any): IUser => {
@@ -5,6 +6,6 @@ export const createUserAdapter = (user: any): IUser => {
     id: user.id,
     username: user.username,
     email: user.email,
-    avatar: "",
+    avatar: user.avatar?.url && getImagePath(user.avatar.url),
   };
 };

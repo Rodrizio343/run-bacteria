@@ -34,7 +34,7 @@ const AccountView = ({ user }: Props) => {
               sx={{ width: 100, height: 100 }}
             />
             <Typography variant="h5">{user.username}</Typography>
-            <Link href="/" color="secondary">
+            <Link href="/account/settings" color="secondary">
               Edit Profile
             </Link>
           </Paper>

@@ -6,6 +6,7 @@ import { setCookie, deleteCookie } from "cookies-next";
 import { getItem, removeItem, setItem } from "@/utils/localStorage";
 import { localStorage } from "@/@core/domain/entities/localStorage";
 import { fullfilledThunk, pendingThunk, rejectedThunk } from "./session.utils";
+import { RootState } from "../../store";
 
 const userInitialState: IUser = {
   id: 0,
@@ -23,10 +24,10 @@ const sessionInitialState: ISession = {
 export const sessionSlice = createSlice({
   name: "Session",
   initialState: getItem(localStorage.USER)
-    ? {
+    ? ({
         ...sessionInitialState,
         user: getItem(localStorage.USER),
-      }
+      } as ISession)
     : sessionInitialState,
   reducers: {
     logout: (state) => {
@@ -55,5 +56,6 @@ export const sessionSlice = createSlice({
 });
 
 export const { logout } = sessionSlice.actions;
+export const selectUserSession = (state: RootState) => state.session.user;
 
 export default sessionSlice.reducer;

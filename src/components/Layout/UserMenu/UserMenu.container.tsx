@@ -1,9 +1,9 @@
-import { AppStore } from "@/@core/infraestructure/redux/store";
+import { useAppSelector } from "@/@core/infraestructure/redux/store";
 import UserMenuView from "./UserMenu.view";
-import { useSelector } from "react-redux";
+import { selectUserSession } from "@/@core/infraestructure/redux/states/session/session.state";
 
 const UserMenu = () => {
-  const { user } = useSelector((state: AppStore) => state.session);
+  const user = useAppSelector(selectUserSession);
   return <UserMenuView user={user} />;
 };
 export default UserMenu;

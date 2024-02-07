@@ -20,8 +20,9 @@ export const AuthWrapper = ({ children }: Props) => {
       dispatch(logout());
       push("/auth");
     } else {
-      dispatch(getUserThunk());
-      setIsLoading(false);
+      dispatch(getUserThunk()).then(() => {
+        setIsLoading(false);
+      });
     }
   }, [token, push]);
 

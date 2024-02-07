@@ -38,3 +38,16 @@ export const getUserData = async (): Promise<IUser> => {
     throw error;
   }
 };
+
+export const updateUserData = async (formData): Promise<IUser> => {
+  try {
+    const user = await strapi.request("put", "/users-permissions/user/me", {
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData,
+    });
+    const adpatedUser = await createUserAdapter(user);
+    return adpatedUser;
+  } catch (error) {
+    throw error;
+  }
+};
