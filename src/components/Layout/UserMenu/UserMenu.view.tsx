@@ -13,6 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const UserMenuWrapper = ({ children }) => {
   const { anchorElUser, handleCloseUserMenu } = useHeader();
@@ -39,9 +40,14 @@ const UserMenuWrapper = ({ children }) => {
 };
 
 const UserMenuView = ({ user }: { user: IUser }) => {
-  const { handleOpenUserMenu } = useHeader();
+  const { handleOpenUserMenu, handleCloseUserMenu } = useHeader();
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  useEffect(() => {
+    !user.id && handleCloseUserMenu();
+  }, [user]);
+
   return (
     <>
       {user.id ? (
@@ -50,7 +56,7 @@ const UserMenuView = ({ user }: { user: IUser }) => {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt={user.username}
-                src={user.avatar ? user.avatar : "example"}
+                src={user.avatar ? user.avatar : ""}
               />
             </IconButton>
           </Tooltip>
