@@ -6,6 +6,6 @@ export const createUserAdapter = (user: any): IUser => {
     id: user.id,
     username: user.username,
     email: user.email,
-    avatar: user.avatar?.url && getImagePath(user.avatar.url),
+    avatar: user.avatar?.url ? getImagePath(user.avatar.url) : "",
   };
 };

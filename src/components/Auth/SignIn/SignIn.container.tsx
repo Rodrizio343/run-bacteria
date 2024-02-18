@@ -1,4 +1,7 @@
-import { sessionSignThunk } from "@/@core/infraestructure/redux/states/session/session.thunks";
+import {
+  getUserThunk,
+  sessionSignThunk,
+} from "@/@core/infraestructure/redux/states/session/session.thunks";
 import { useAppDispatch } from "@/@core/infraestructure/redux/store";
 import SnackBar from "@/components/Common/Snackbar/Snackbar.component";
 import useSnackbar from "@/hooks/useSnackbar";
@@ -28,8 +31,12 @@ const SignInContainer = () => {
         .unwrap()
         .then(
           () => {
-            setStatus({ message: "Succesful sign in!", type: "success" });
-            router.push("/");
+            dispatch(getUserThunk())
+              .unwrap()
+              .then(() => {
+                setStatus({ message: "Succesful sign in!", type: "success" });
+                router.push("/");
+              });
           },
           () => {
             setStatus({

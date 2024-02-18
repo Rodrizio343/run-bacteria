@@ -1,12 +1,12 @@
-import { IUser } from "@/@core/domain/entities/user";
-import { createSlice } from "@reduxjs/toolkit";
-import { getUserThunk, sessionSignThunk } from "./session.thunks";
-import { ISession } from "@/@core/domain/entities/session";
-import { setCookie, deleteCookie } from "cookies-next";
-import { getItem, removeItem, setItem } from "@/utils/localStorage";
 import { localStorage } from "@/@core/domain/entities/localStorage";
-import { fullfilledThunk, pendingThunk, rejectedThunk } from "./session.utils";
+import { ISession } from "@/@core/domain/entities/session";
+import { IUser } from "@/@core/domain/entities/user";
+import { getItem, removeItem, setItem } from "@/utils/localStorage";
+import { createSlice } from "@reduxjs/toolkit";
+import { deleteCookie } from "cookies-next";
 import { RootState } from "../../store";
+import { getUserThunk, sessionSignThunk } from "./session.thunks";
+import { fulfilledThunk, pendingThunk, rejectedThunk } from "./session.utils";
 
 const userInitialState: IUser = {
   id: 0,
@@ -21,12 +21,13 @@ const sessionInitialState: ISession = {
   error: null,
 };
 
+const storedUser: IUser = getItem(localStorage.USER) as IUser;
 export const sessionSlice = createSlice({
-  name: "Session",
-  initialState: getItem(localStorage.USER)
+  name: "session",
+  initialState: storedUser?.id
     ? ({
         ...sessionInitialState,
-        user: getItem(localStorage.USER),
+        user: storedUser,
       } as ISession)
     : sessionInitialState,
   reducers: {
@@ -40,7 +41,7 @@ export const sessionSlice = createSlice({
     // SignIn Reducers
 
     builder.addCase(sessionSignThunk.pending, pendingThunk);
-    builder.addCase(sessionSignThunk.fulfilled, fullfilledThunk);
+    builder.addCase(sessionSignThunk.fulfilled, fulfilledThunk);
     builder.addCase(sessionSignThunk.rejected, rejectedThunk);
 
     //Get User Reducer

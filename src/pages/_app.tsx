@@ -24,7 +24,9 @@ export default function MyApp(props: MyAppProps) {
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
-      <Provider store={store()}>
+      {/* TEST PURPOSES ONLY */}
+      {/* <Provider store={store()}> */}
+      <Provider store={store}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <MainLayout>

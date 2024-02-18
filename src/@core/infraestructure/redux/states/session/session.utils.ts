@@ -1,11 +1,12 @@
 import { setItem } from "@/utils/localStorage";
+import { localStorage } from "@/@core/domain/entities/localStorage";
 import { setCookie } from "cookies-next";
 
-export const fullfilledThunk = (state, action) => {
+export const fulfilledThunk = (state, action) => {
   state.isLoading = false;
-  state.user = action.payload.user;
   setCookie("strapi_jwt", action.payload.jwt);
   setItem(localStorage.USER, state.user);
+  state.user = action.payload.user;
 };
 
 export const rejectedThunk = (state, action) => {

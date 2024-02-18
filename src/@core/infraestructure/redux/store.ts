@@ -12,15 +12,24 @@ const rootReducer = combineReducers({
   session: sessionSlice.reducer,
 });
 
-const store = (preloadedState?: Partial<RootState>) => {
-  return configureStore<IAppStore>({
-    reducer: rootReducer,
-    preloadedState,
-  });
-};
+const store = configureStore<IAppStore>({
+  reducer: rootReducer,
+});
+
+//TEST PURPOSES ONLY
+// const store = (preloadedState?: Partial<RootState>) => {
+//   return configureStore<IAppStore>({
+//     reducer: rootReducer,
+//     preloadedState,
+//   });
+// };
 
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof store>;
+export type AppStore = typeof store;
+
+//TEST PURPOSES ONLY
+// export type AppStore = ReturnType<typeof store>;
+
 export type AppDispatch = AppStore["dispatch"];
 
 //Hooks
