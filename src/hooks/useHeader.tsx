@@ -1,4 +1,11 @@
-import { createContext, useContext, useState } from "react";
+import { useRouter } from "next/router";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 type headerElement = null | HTMLElement;
 
@@ -23,6 +30,7 @@ const headerContextDefault = {
 const HeaderContext = createContext<IHeaderContext>(headerContextDefault);
 
 export const HeaderProvider = ({ children }) => {
+  const router = useRouter();
   const [anchorElNav, setAnchorElNav] = useState<headerElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<headerElement>(null);
 
@@ -37,9 +45,15 @@ export const HeaderProvider = ({ children }) => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
+
+  useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      handleCloseUserMenu();
+    });
+  }, [router.events, handleCloseUserMenu]);
 
   return (
     <HeaderContext.Provider

@@ -13,7 +13,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 
 const UserMenuWrapper = ({ children }) => {
   const { anchorElUser, handleCloseUserMenu } = useHeader();
@@ -43,10 +42,6 @@ const UserMenuView = ({ user }: { user: IUser }) => {
   const { handleOpenUserMenu, handleCloseUserMenu } = useHeader();
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  useEffect(() => {
-    !user.id && handleCloseUserMenu();
-  }, [user]);
 
   return (
     <>
