@@ -3,6 +3,7 @@ import { Unstable_Grid2 as Grid, Typography } from "@mui/material";
 import { StyledTextField as TextField } from "../../Common/TextField/TextField.styled";
 import PasswordField from "../Common/PasswordField";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const SignInView = ({ form }) => {
   const router = useRouter();
@@ -36,6 +37,12 @@ const SignInView = ({ form }) => {
             error={form.touched.password && Boolean(form.errors.password)}
             helperText={form.touched.password && form.errors.password}
           />
+        </Grid>
+        <Grid xs={12} md={12}>
+          <Typography>
+            ¿Do not you remeber your password?{" "}
+            <Link href="/forgotten-password">Click here.</Link>
+          </Typography>
         </Grid>
         <Grid xs={12} md={12}>
           <LoadingButton
