@@ -1,11 +1,14 @@
 import * as yup from "yup";
 
-export const registerValidation = yup.object({
-  username: yup.string().trim().required("Username is required"),
+export const forgottenPasswordFormValidation = yup.object({
   email: yup
     .string()
     .email("Must be a valid email")
-    .required("Email is required"),
+    .required("E-mail is required"),
+});
+
+export const resetPasswordFormValidation = yup.object({
+  code: yup.string(),
   password: yup
     .string()
     .required("Password is required")
@@ -17,9 +20,4 @@ export const registerValidation = yup.object({
     .string()
     .required()
     .oneOf([yup.ref("password")], "Passwords must match"),
-});
-
-export const loginValidation = yup.object({
-  identifier: yup.string().required("Username or e-mail is required"),
-  password: yup.string().required("Password is required"),
 });

@@ -1,6 +1,10 @@
 import strapi from "@/lib/strapi";
-import { IUser } from "../domain/entities/user";
+import {
+  StrapiAuthenticationResponse,
+  StrapiResetPasswordData,
+} from "strapi-sdk-js";
 import { createUserAdapter } from "../adapters/session.adapter";
+import { IUser } from "../domain/entities/user";
 
 export const register = async (
   username: string,
@@ -47,6 +51,32 @@ export const updateUserData = async (formData): Promise<IUser> => {
     });
     const adpatedUser = await createUserAdapter(user);
     return adpatedUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const forgottenPasswordRequest = async (email): Promise<void> => {
+  try {
+    const response = await strapi.forgotPassword({ email });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const resetPasswordRequest = async (
+  password,
+  passwordConfirmation,
+  code
+): Promise<StrapiAuthenticationResponse> => {
+  try {
+    const response = await strapi.resetPassword({
+      password,
+      passwordConfirmation,
+      code,
+    });
+    return response;
   } catch (error) {
     throw error;
   }
