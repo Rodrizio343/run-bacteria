@@ -1,12 +1,25 @@
-import { Tabs, Tab, Box, Paper, Typography, Container } from "@mui/material";
-import { createContext, useState } from "react";
+import {
+  Tabs,
+  Tab,
+  Box,
+  Paper,
+  Typography,
+  Container,
+  Alert,
+} from "@mui/material";
+import { useState } from "react";
 import SignUpContainer from "./SignUp/SignUp.container";
 import SignInContainer from "./SignIn/SignIn.container";
-
+import CheckIcon from "@mui/icons-material/Check";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+
+interface Props {
+  initialTab: number;
+  confirmed: boolean;
 }
 
 const CustomTabPanel = (props: TabPanelProps) => {
@@ -32,7 +45,7 @@ const a11yProps = (index: number) => {
   };
 };
 
-const AuthContainer = ({ initialTab }: { initialTab: number }) => {
+const AuthContainer = ({ initialTab, confirmed = false }: Props) => {
   const [value, setValue] = useState(initialTab ? initialTab : 0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -73,6 +86,15 @@ const AuthContainer = ({ initialTab }: { initialTab: number }) => {
           </Tabs>
         </Box>
         <CustomTabPanel value={value} index={0}>
+          {confirmed && (
+            <Alert
+              icon={<CheckIcon fontSize="inherit" />}
+              severity="success"
+              sx={{ marginBottom: "1rem" }}
+            >
+              Your account has been confirmed. Please, sign in.
+            </Alert>
+          )}
           <SignInContainer />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>

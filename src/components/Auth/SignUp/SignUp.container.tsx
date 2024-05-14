@@ -1,11 +1,9 @@
-import { sessionSignThunk } from "@/@core/infraestructure/redux/states/session/session.thunks";
-import { useAppDispatch } from "@/@core/infraestructure/redux/store";
 import SnackBar from "@/components/Common/Snackbar/Snackbar.component";
 import useSnackbar from "@/hooks/useSnackbar";
 import { registerValidation } from "@/validations/auth";
 import { useFormik } from "formik";
 import SignUpView from "./SignUp.view";
-import { useRouter } from "next/router";
+import { register } from "@/@core/infraestructure/session.service";
 
 interface IValues {
   username: string;
@@ -16,8 +14,6 @@ interface IValues {
 
 const SignUpContainer = () => {
   const { open, handleClose, status, setStatus, setOpen } = useSnackbar();
-  const router = useRouter();
-  const dispatch = useAppDispatch();
 
   const formik = useFormik({
     initialValues: {
@@ -28,23 +24,22 @@ const SignUpContainer = () => {
     },
     validationSchema: registerValidation,
     onSubmit: async ({ username, email, password }: IValues) => {
-      dispatch(sessionSignThunk({ username, email, password }))
-        .unwrap()
-        .then(
-          () => {
-            setStatus({ message: "Succesful sign up!", type: "success" });
-            router.push("/");
-          },
-          (res) => {
-            setStatus({
-              message: res.error.message,
-              type: "error",
-            });
-          }
-        )
-        .finally(() => {
-          setOpen(true);
+      try {
+        const response = await register(username, email, password);
+        response.user &&
+          setStatus({
+            message:
+              "We have sent you an e-mail! Please, confirm your account.",
+            type: "success",
+          });
+      } catch ({ error }: any) {
+        setStatus({
+          message: error.message,
+          type: "error",
         });
+      } finally {
+        setOpen(true);
+      }
     },
   });
 

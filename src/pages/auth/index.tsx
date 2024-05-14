@@ -14,7 +14,7 @@ const AuthPage = () => {
   }, [dispatch]);
 
   const {
-    query: { index },
+    query: { index, confirmed },
   } = router;
 
   return (
@@ -22,7 +22,10 @@ const AuthPage = () => {
       <Head>
         <title>Run Bacteria | Welcome!</title>
       </Head>
-      <AuthContainer initialTab={index ? +index : 0} />
+      <AuthContainer
+        initialTab={index ? +index : 0}
+        confirmed={confirmed === "true"}
+      />
     </>
   );
 };
